@@ -4,8 +4,7 @@
     box-sizing: border-box;
     font-size: 20px;
     color: white;
-    background-color: rgb(128, 136, 95);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+    background-color: rgb(105, 109, 91);
 }
 .calculator {
     display: grid;
@@ -40,8 +39,21 @@
     border-radius: 20px 20px 0px 0px;
     color: white;
     font-size: 40px;
-    padding: 60px;
     opacity: .85;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    word-wrap: break-word;
+    word-break: break-all;
+    padding: 10px;
+    height: 140px;
+}
+.previous-display {
+    background: none;
+}
+.current-display {
+    background: none;
 }
 #equals {
     border-radius: 0px 0px 20px 0px;
