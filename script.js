@@ -12,7 +12,9 @@ let equals = document.getElementById('equals');
 let previous = '';
 let current = '';
 let decimal = false;
-let operation = null;
+let number1 = 0;
+let number2 = 0;
+let action = '';
 
 function add(a, b) {
     return a + b
@@ -28,19 +30,19 @@ function divide(a, b) {
 }
 
 
-function operate(operator, operand1, operand2) {
-    if (operator == '+') {
-        return add(operand1, operand2)
+function operate(action, number1, number2) {
+    if (action === '+') {
+        return add(number1, number2)
     }
-    else if (operator === '-') {
-        return subtract(operand1, operand2)
+    else if (action === '-') {
+        return subtract(number1, number2)
     }
-    else if (operator === '*') {
-        return multiply(operand1, operand2)
+    else if (action === '*') {
+        return multiply(number1, number2)
     }
-    else {
-        return divide(operand1, operand2)
-    }
+    else (action === '÷')
+        return divide(number1, number2)
+    
 }
 
 number.forEach(number => {
@@ -52,7 +54,7 @@ number.forEach(number => {
         }
         current += e.target.innerText;
         currentDisplay.innerText = current;
-        operation = parseFloat(current);
+        number1 = parseFloat(current);
     })
 });
 
@@ -61,27 +63,34 @@ operator.forEach(operator => {
         if (!current) return;
         decimal = false;
         
+        action = e.target.innerText;
         current += e.target.innerText;
         currentDisplay.innerText = current;
 
-        if (current.innerText = operator) {
-            moveText();
-            // calculate();
-        }
+        moveText();
+        calculate();
+        
     })
 })
-
-    clear.addEventListener('click', (e) => {
-        currentDisplay.innerText = '';
-        current = '';
-        previousDisplay.innerText = '';
-        previous = '';
-        operation = null;
-    })
-
     function moveText() {
         previous += current+ ' ';
         previousDisplay.innerText = previous;
         currentDisplay.innerText = '';
         current = '';
     }
+    function calculate() {
+    
+    
+    
+    
+        //    console.log(operate(action, number1, 10));  <----- it works
+      
+    }
+    clear.addEventListener('click', (e) => {
+        currentDisplay.innerText = '';
+        current = '';
+        previousDisplay.innerText = '';
+        previous = '';
+        operation = null;
+        decimal = null;
+    })
