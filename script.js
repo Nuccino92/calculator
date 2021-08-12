@@ -1,5 +1,6 @@
 let previousDisplay = document.querySelector('.previous-display');
 let currentDisplay = document.querySelector('.current-display');
+let totalDisplay = document.querySelector('.total-display');
 let number = document.querySelectorAll('.number');
 let operator = document.querySelectorAll('.operator');
 let clear = document.getElementById('clear');
@@ -11,10 +12,10 @@ let equals = document.getElementById('equals');
 let displayValue = '';
 let total = 0;
 let currentNumber = 0;
-let decimal = false;
 let action = '';
 
-function add(a, b) {
+
+function add(a, b) {  // math functions
     return a + b
 };
 function subtract(a, b) {
@@ -27,8 +28,7 @@ function divide(a, b) {
     return a / b
 };
 
-
-function operate(action, a, b) {
+function operate(action, a, b) {  // function to select the math solution
     if (action === '+') {
         return add(a, b)
     }
@@ -41,23 +41,23 @@ function operate(action, a, b) {
     else (action === '÷')
         return divide(a, b)  
 };
+  
+
+
 
         number.forEach(number => {
             number.addEventListener('click', (e) => {
-                if (currentDisplay.innerText == '.') {
-                    return;
-                }
+                if (e.target.innerText == '.' && currentDisplay.innerText.includes('.')) {return};
                 
                 currentDisplay.innerText += e.target.innerText;
                 displayValue = currentDisplay.innerText;
-                       
+                 
                 if (currentDisplay.innerText && previousDisplay.innerText) {
-                    currentNumber = parseFloat(displayValue);   
-                    
+                    currentNumber = parseFloat(displayValue);           
                 }
-            })    
+            })           
         })
-
+ 
     function getOperator() {
         operator.forEach(operator => {
             operator.addEventListener('click', (e) => {
@@ -76,12 +76,43 @@ getOperator();
 
     function moveText() {
         previousDisplay.innerText = currentDisplay.innerText + ' ' + action;
-        currentDisplay.innerText = '';
         total = parseFloat(displayValue);
-        displayValue = '';  
+        currentDisplay.innerText = '';
+        displayValue = '';
+        decimal = false;
       }   
-   
-   function clearButton() {
+       
+    function equalsButton() {
+        equals.addEventListener('click', (e) => {        
+            if (!currentDisplay.innerText || !previousDisplay.innerText) {return}
+            if (action == '÷' && currentNumber == 0 && total == 0) {
+                currentDisplay.innerText = "Press clear :)";
+            }
+
+            else {
+                operate(action, total, currentNumber);
+                previousDisplay.innerText = `${total} ${action} ${currentNumber}`;
+                totalDisplay.innerText = (operate(action, total, currentNumber)) + ' ';
+                currentDisplay.innerText = (operate(action, total, currentNumber)) + ' ';
+            }
+        })
+    }
+equalsButton();
+
+    function operateCalc() {
+        operate(action, total, currentNumber);
+                previousDisplay.innerText = (operate(action, total, currentNumber)) + ' ';
+                currentDisplay.innerText = (operate(action, total, currentNumber)) + ' ';
+                totalDisplay.innerText = (operate(action, total, currentNumber)) + ' ';
+                displayValue = currentDisplay.innerText;
+                total = parseFloat(displayValue);
+                
+                if (action == '÷' && currentNumber == 0 && total == 0) {
+                    currentDisplay.innerText = "Press clear :)";
+                }
+    }
+
+    function clearButton() {
         clear.addEventListener('click', (e) => {
             currentDisplay.innerText = '';
             displayValue = '';
@@ -89,46 +120,19 @@ getOperator();
             previousDisplay.innerText = '';
             action = '';
             currentNumber = 0;
+            totalDisplay.innerText = '';
         })
     }
-clearButton()
-    
-    function equalsButton() {
-        equals.addEventListener('click', (e) => {
-            if (!currentDisplay.innerText || !previousDisplay.innerText) {
-                return;
-            }
-            else {
-                operate(action, total, currentNumber);
-                previousDisplay.innerText = `${total} ${action} ${currentNumber}`;
-                currentDisplay.innerText = (operate(action, total, currentNumber)) + ' ';
-            
-                displayValue = currentDisplay.innerText;
-                total = parseFloat(displayValue);
-        
-                console.log(action, total, currentNumber)
-            }
+clearButton();
+
+        back.addEventListener('click', (e) => {      
+            currentDisplay.innerText = currentDisplay.innerText.substring(0, currentDisplay.innerText.length -1);
+            displayValue = currentDisplay.innerText; 
+            currentNumber = parseFloat(displayValue);         
         })
-    }
-equalsButton()
 
-    function operateCalc() {
-        operate(action, total, currentNumber);
-                previousDisplay.innerText = `${total} ${action} ${currentNumber}`;
-                currentDisplay.innerText = (operate(action, total, currentNumber)) + ' ';
-            
-                displayValue = currentDisplay.innerText;
-                total = parseFloat(displayValue);
-        
-                console.log(action, total, currentNumber)
-    }
+        // plusMinus.addEventListener('click', (e) => {
+        //     if (currentNumber > 0) {
 
-
-// function back() {
-
-    // }
-
-    
-    // function plusMinus() {
-
-    // }
+        //     }
+        // })
