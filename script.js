@@ -49,12 +49,14 @@ function operate(action, a, b) {  // function to select the math solution
             number.addEventListener('click', (e) => {
                 if (e.target.innerText == '.' && currentDisplay.innerText.includes('.')) {return};
                 
+                if(currentDisplay.innerText.length > 10) {
+                    currentDisplay.innerText = currentDisplay.innerText.substring(0,10);}
+                
                 currentDisplay.innerText += e.target.innerText;
                 displayValue = currentDisplay.innerText;
                  
                 if (currentDisplay.innerText && previousDisplay.innerText) {
-                    currentNumber = parseFloat(displayValue);           
-                }
+                    currentNumber = parseFloat(displayValue);}              
             })           
         })
  
@@ -63,15 +65,15 @@ function operate(action, a, b) {  // function to select the math solution
             operator.addEventListener('click', (e) => {
                 if (!displayValue) return;
                 if (currentDisplay.innerText && previousDisplay.innerText) {
-                    operateCalc();
-                }
+                    operateCalc(); }
+                
                 previousDisplay.innerText = e.target.innerText;
                 action = previousDisplay.innerText;
 
                 moveText();
             })      
         })
-    }
+    };
 getOperator();
 
     function moveText() {
@@ -79,8 +81,7 @@ getOperator();
         total = parseFloat(displayValue);
         currentDisplay.innerText = '';
         displayValue = '';
-        decimal = false;
-      }   
+      };  
        
     function equalsButton() {
         equals.addEventListener('click', (e) => {        
@@ -88,7 +89,6 @@ getOperator();
             if (action == '÷' && currentNumber == 0 && total == 0) {
                 currentDisplay.innerText = "Press clear :)";
             }
-
             else {
                 operate(action, total, currentNumber);
                 previousDisplay.innerText = `${total} ${action} ${currentNumber}`;
@@ -96,7 +96,7 @@ getOperator();
                 currentDisplay.innerText = (operate(action, total, currentNumber)) + ' ';
             }
         })
-    }
+    };
 equalsButton();
 
     function operateCalc() {
@@ -110,7 +110,7 @@ equalsButton();
                 if (action == '÷' && currentNumber == 0 && total == 0) {
                     currentDisplay.innerText = "Press clear :)";
                 }
-    }
+    };
 
     function clearButton() {
         clear.addEventListener('click', (e) => {
@@ -122,17 +122,22 @@ equalsButton();
             currentNumber = 0;
             totalDisplay.innerText = '';
         })
-    }
+    };
 clearButton();
 
         back.addEventListener('click', (e) => {      
             currentDisplay.innerText = currentDisplay.innerText.substring(0, currentDisplay.innerText.length -1);
             displayValue = currentDisplay.innerText; 
             currentNumber = parseFloat(displayValue);         
-        })
+        });
 
-        // plusMinus.addEventListener('click', (e) => {
-        //     if (currentNumber > 0) {
+    
+        plusMinus.addEventListener('click', (e) => {
+                currentNumber = parseFloat(displayValue);
 
-        //     }
-        // })
+                if (currentNumber > 0) {
+                    currentNumber =  currentNumber - currentNumber - currentNumber;
+                    displayValue = currentNumber;
+                    currentDisplay.innerText = displayValue;
+                }
+        });

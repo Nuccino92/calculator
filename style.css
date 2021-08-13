@@ -38,22 +38,25 @@
     text-align: right;
     border-radius: 20px 20px 0px 0px;
     color: white;
-    font-size: 40px;
     opacity: .85;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
+    font-family: monospace;
     word-wrap: break-word;
-    word-break: break-all;
-    padding: 10px;
     height: 140px;
+    position: relative;
 }
 .previous-display {
     background: none;
     margin-right: 20px;
+    padding: 10px;
+    font-size: 15px;
 }
 .current-display {
     background: none;
+    padding: 10px;
+    margin-right: 5px;
 }
 #equals {
     border-radius: 0px 0px 20px 0px;
@@ -64,4 +67,5 @@
     font-size: 30px;
     margin-left: 30px;
     background-color: transparent;
+    padding: 10px;
 }
